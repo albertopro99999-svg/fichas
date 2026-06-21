@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichas Laundry | CABA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-principal: #f8fafc;
+            --bg-tarjeta: #ffffff;
+            --texto-principal: #0f172a;
+            --texto-secundario: #64748b;
+            --color-primario: #2563eb;
+            --color-primario-hover: #1d4ed8;
+            --color-whatsapp: #22c55e;
+            --color-whatsapp-hover: #16a34a;
+            --borde: #e2e8f0;
+            --bg-img: #f1f5f9;
+        }
+
+        [data-theme="dark"] {
+            --bg-principal: #0b0f19;
+            --bg-tarjeta: #111827;
+            --texto-principal: #f8fafc;
+            --texto-secundario: #94a3b8;
+            --color-primario: #3b82f6;
+            --color-primario-hover: #2563eb;
+            --borde: #1f2937;
+            --bg-img: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: var(--bg-tarjeta);
+            border-bottom: 1px solid var(--borde);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--color-primario);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-theme {
+            background: none;
+            border: none;
+            color: var(--texto-principal);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        .hero {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: var(--texto-secundario);
+            font-size: 1rem;
+        }
+
+        .badge-zona {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background-color: var(--bg-img);
+            color: var(--color-primario);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.75rem;
+            border: 1px solid var(--borde);
+        }
+
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 220px;
+            background-color: var(--bg-img);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            gap: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: var(--texto-secundario);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .precio {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-top: auto;
+            padding-top: 0.5rem;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .widget {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .widget h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--texto-secundario);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.65rem 0.75rem;
+            border-radius: 6px;
+            border: 1px solid var(--borde);
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--color-primario);
+        }
+
+        .btn-primario {
+            width: 100%;
+            padding: 0.65rem;
+            background-color: var(--color-primario);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primario:hover {
+            background-color: var(--color-primario-hover);
+        }
+
+        .resultado-calc {
+            margin-top: 1rem;
+            padding: 0.85rem;
+            background-color: var(--bg-principal);
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border: 1px solid var(--borde);
+        }
+
+        .btn-wsp-submit {
+            width: 100%;
+            padding: 0.85rem;
+            background-color: var(--color-whatsapp);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-wsp-submit:hover {
+            background-color: var(--color-whatsapp-hover);
+        }
+
+        /* =============================================
+           ESTILOS DE LA IA INTERNA (CHATBOT)
+        ============================================= */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        /* Etiqueta flotante */
+        .chatbot-label {
+            background-color: var(--bg-tarjeta);
+            color: var(--texto-principal);
+            padding: 0.5rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid var(--borde);
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        /* Flechita apuntando hacia el botón */
+        .chatbot-label::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 24px;
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: var(--bg-tarjeta) transparent transparent transparent;
+        }
+
+        /* Borde de la flechita para que coincida con el borde del globo */
+        .chatbot-label::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 23px;
+            border-width: 7px 7px 0;
+            border-style: solid;
+            border-color: var(--borde) transparent transparent transparent;
+            z-index: -1;
+        }
+
+        /* Animación de flotado para llamar la atención */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--color-primario);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.05);
+        }
+
+        .chatbot-window {
+            width: 330px;
+            height: 430px;
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            margin-bottom: 10px;
+            display: none; /* Oculto por defecto */
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background-color: var(--color-primario);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .chatbot-header i.close-btn {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            background-color: var(--bg-principal);
+        }
+
+        .msg {
+            max-width: 85%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .msg.bot {
+            background-color: var(--bg-tarjeta);
+            color: var(--texto-principal);
+            align-self: flex-start;
+            border: 1px solid var(--borde);
+            border-top-left-radius: 2px;
+        }
+
+        .msg.user {
+            background-color: var(--color-primario);
+            color: white;
+            align-self: flex-end;
+            border-top-right-radius: 2px;
+        }
+
+        .chatbot-input-area {
+            padding: 0.75rem;
+            background-color: var(--bg-tarjeta);
+            border-top: 1px solid var(--borde);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input-area input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--borde);
+            border-radius: 6px;
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            outline: none;
+            font-size: 0.85rem;
+        }
+
+        .chatbot-input-area button {
+            background-color: var(--color-primario);
+            color: white;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            .sidebar {
+                width: 100%;
+            }
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Luticom</div>
+        <div class="nav-actions">
+            <button class="btn-theme" id="theme-toggle" title="Cambiar modo">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        
+        <main class="content">
+            <div class="hero">
+                <h1>Fichas Laundry</h1>
+                <h2> Entregamos:</h2>
+                <h3>- A domicilio</h3>
+                <h3>- En un punto de acuerdo</h3>
+                <h3>- A locales</h3>
+                <p>Abastecimiento inmediato.</p>
+                <span class="badge-zona"><i class="fas fa-map-marker-alt"></i> Envíos exclusivos en CABA (Hasta General Paz)</span>
+            </div>
+
+            <div class="grid-productos">
+                <div class="card">
+                    <div class="card-img-container">
+                        <img src="D_NQ_NP_866033-MLA102740499870_122025-O.webp" 
+                             onerror="this.onerror=null; this.src='https://http2.mlstatic.com/D_NQ_NP_866033-MLA102740499870_122025-O.webp';" 
+                             alt="Ficha Estándar">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Ficha Laundry</div>
+                        <p class="card-text">Introduce esta ficha en un lavadero compatible y ahorrate lavar la ropa.</p>
+                        <div class="precio">$1.600 <span style="font-size: 0.8rem; font-weight: normal; color: var(--texto-secundario);">c/u</span></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar">
+            
+            <div class="widget">
+                <h3><i class="fas fa-calculator"></i> Cotizador</h3>
+                <div class="form-group">
+                    <label for="cantidad">Cantidad (Mínimo 50):</label>
+                    <input type="number" id="cantidad" class="form-control" min="50" max="500" value="100">
+                </div>
+                <button class="btn-primario" onclick="calcularTotal()">Calcular Presupuesto</button>
+                <div class="resultado-calc" id="resultado">
+                    Total Estimado: $160.000 ARS
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3><i class="fas fa-truck"></i> Envío dentro de CABA</h3>
+                <div class="form-group">
+                    <label for="direccion">Dirección exacta de entrega:</label>
+                    <input type="text" id="direccion" class="form-control" placeholder="Escribi calle, número y barrio">
+                </div>
+                <button class="btn-wsp-submit" onclick="enviarPedido()">
+                    <i class="fab fa-whatsapp"></i> Confirmar Pedido
+                </button>
+            </div>
+
+        </aside>
+    </div>
+
+    <!-- =============================================
+       ESTRUCTURA HTML DEL ASISTENTE VIRTUAL IA 24/7
+    ============================================= -->
+    <div class="chatbot-container">
+        
+        <!-- Ventana del chat (Oculta al inicio) -->
+        <div class="chatbot-window" id="botWindow">
+            <div class="chatbot-header">
+                <!-- También cambié el nombre en el encabezado del chat para que coincida -->
+                <span><i class="fas fa-robot"></i> Asistente Lutibot 24/7</span>
+                <i class="fas fa-times close-btn" onclick="toggleBot()"></i>
+            </div>
+            <div class="chatbot-messages" id="botMessages">
+                <div class="msg bot">¡Hola! 👋 Soy Lutibot, tu asistente inteligente. ¿En qué te puedo ayudar hoy? Podés preguntarme precios, zonas de envío o cuántas fichas buscás.</div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="botInput" placeholder="Escribí tu pregunta acá..." onkeypress="checkBotSubmit(event)">
+                <button onclick="handleBotResponse()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- Etiqueta Flotante Asistente IA -->
+        <div class="chatbot-label" id="botLabel" onclick="toggleBot()">Asistente lutibot</div>
+        
+        <!-- Botón circular -->
+        <div class="chatbot-button" onclick="toggleBot()">
+            <i class="fas fa-comments"></i>
+        </div>
+
+    </div>
+
+    <script>
+        const PRECIO_POR_FICHA = 1600; 
+        const WHATSAPP_NUMERO = "5491132623242";
+
+        function calcularTotal() {
+            const inputCantidad = document.getElementById('cantidad');
+            const resultadoDiv = document.getElementById('resultado');
+            let cantidad = parseInt(inputCantidad.value);
+
+            if (isNaN(cantidad) || cantidad < 50) {
+                inputCantidad.value = 50;
+                cantidad = 50;
+            } else if (cantidad > 500) {
+                inputCantidad.value = 500;
+                cantidad = 500;
+            }
+
+            const total = cantidad * PRECIO_POR_FICHA;
+            resultadoDiv.innerHTML = `Total Estimado: $${total.toLocaleString('es-AR')} ARS`;
+            return { cantidad, total };
+        }
+
+        function validarDireccionCABA(texto) {
+            const direccion = texto.toLowerCase();
+            const palabrasProvincia = ["lanus", "avellaneda", "moron", "san martin", "caseros", "vicente lopez", "olivos", "quilmes", "ramos mejia", "san isidro", "pilar", "gba", "provincia"];
+            for (let gba of palabrasProvincia) {
+                if (direccion.includes(gba)) return false;
+            }
+            if (direccion.includes("caba") || direccion.includes("capital federal") || direccion.includes("buenos aires capital") || direccion.includes("ciudad autonoma")) {
+                return true;
+            }
+            const barriosCABA = ["palermo", "recoleta", "belgrano", "caballito", "flores", "floresta", "almagro", "balvanera", "san telmo", "boca", "barracas", "constitucion", "saavedra", "nunez", "urquiza", "devoto", "versalles", "liniers", "mataderos", "lugano", "pompeya", "parque patricios", "chacarita", "colegiales", "villa crespo", "paternal", "agronomia", "boedo"];
+            for (let barrio of barriosCABA) {
+                if (direccion.includes(barrio)) return true;
+            }
+            return false;
+        }
+
+        function enviarPedido() {
+            const datos = calcularTotal();
+            const inputDireccion = document.getElementById('direccion');
+            const direccionRaw = inputDireccion.value.trim();
+
+            if (!direccionRaw) {
+                alert("Por favor, ingresá tu dirección.");
+                inputDireccion.focus();
+                return;
+            }
+
+            if (!validarDireccionCABA(direccionRaw)) {
+                alert("Atención: Los envíos son exclusivos dentro de CABA (Límite Av. General Paz). Por favor, especificá tu barrio o incluí 'CABA' en la dirección.");
+                inputDireccion.focus();
+                return;
+            }
+
+            const mensaje = `Hola! Quiero encargar fichas laundry desde la web.%0A%0A` +
+                            `• Cantidad: ${datos.cantidad} unidades%0A` +
+                            `• Zona: CABA (Exclusivo Capital Federal)%0A` +
+                            `• Dirección de entrega: ${direccionRaw}%0A` +
+                            `• Total: $${datos.total.toLocaleString('es-AR')} ARS`;
+
+            window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}`, '_blank');
+        }
+
+        // Interruptor modo oscuro
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.getAttribute('data-theme') === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        /* =============================================
+           LÓGICA JAVASCRIPT DE LA IA INTERNA (NLP BÁSICO)
+        ============================================= */
+        function toggleBot() {
+            const botWindow = document.getElementById('botWindow');
+            const botLabel = document.getElementById('botLabel');
+            
+            if (botWindow.style.display === 'flex') {
+                botWindow.style.display = 'none';
+                botLabel.style.display = 'block';
+            } else {
+                botWindow.style.display = 'flex';
+                botLabel.style.display = 'none';
+                document.getElementById('botInput').focus();
+            }
+        }
+
+        function checkBotSubmit(e) {
+            if (e.key === 'Enter') handleBotResponse();
+        }
+
+        function handleBotResponse() {
+            const inputEl = document.getElementById('botInput');
+            const mensajesEl = document.getElementById('botMessages');
+            const prompt = inputEl.value.trim();
+
+            if (!prompt) return;
+
+            // Mostrar mensaje del usuario
+            const userMsgHtml = `<div class="msg user">${prompt}</div>`;
+            mensajesEl.innerHTML += userMsgHtml;
+            inputEl.value = '';
+            mensajesEl.scrollTop = mensajesEl.scrollHeight;
+
+            // Procesamiento de IA Interna
+            let respuestaBot = "Disculpá, no entendí bien tu consulta. Podés preguntarme sobre los precios, el pedido mínimo o las zonas donde hacemos envíos.";
+            const limpio = prompt.toLowerCase();
+            const numerosEncontrados = limpio.match(/\d+/);
+
+            if (limpio.includes("pedir") || limpio.includes("comprar") || limpio.includes("encargar") || limpio.includes("fichas")) {
+                if (numerosEncontrados) {
+                    const cant = parseInt(numerosEncontrados[0]);
+                    if (cant >= 50 && cant <= 500) {
+                        respuestaBot = `¡Perfecto! Para pedir **${cant} fichas**, ya configuré el Cotizador de la izquierda para vos. El total estimado sería de **$${(cant * PRECIO_POR_FICHA).toLocaleString('es-AR')} ARS**. Solo poné tu dirección ahí y hacé clic en "Confirmar Pedido".`;
+                        document.getElementById('cantidad').value = cant;
+                        calcularTotal();
+                    } else if (cant < 50) {
+                        respuestaBot = `Tomá en cuenta que el pedido mínimo de fichas es de **50 unidades**. Si querés, podés pedir 50 unidades desde el cotizador web.`;
+                    } else {
+                        respuestaBot = `El límite máximo por envío web Express es de 500 fichas. Si necesitás más de esa cantidad, por favor comunicate directo con nosotros.`;
+                    }
+                } else {
+                    respuestaBot = "Para hacer un pedido ingresá la cantidad deseada en el panel del 'Cotizador' a la izquierda, ingresá tu dirección en CABA y presioná 'Confirmar Pedido' para ir a WhatsApp.";
+                }
+            } else if (limpio.includes("precio") || limpio.includes("cuanto sale") || limpio.includes("costo") || limpio.includes("valor")) {
+                respuestaBot = `Cada ficha individual de Laundry cuesta **$${PRECIO_POR_FICHA.toLocaleString('es-AR')} ARS**. Recordá que hacemos ventas a partir de un mínimo de 50 unidades.`;
+            } else if (limpio.includes("envio") || limpio.includes("zona") || limpio.includes("donde") || limpio.includes("caba") || limpio.includes("provincia") || limpio.includes("general paz")) {
+                respuestaBot = "Hacemos envíos rápidos y exclusivos dentro de **CABA (Capital Federal)** hasta la Avenida General Paz. Entregamos a domicilio, puntos de acuerdo y locales comerciales.";
+            } else if (limpio.includes("minimo") || limpio.includes("cuanto es lo menos")) {
+                respuestaBot = `El pedido mínimo para distribución es de **50 fichas** (equivalente a $${(50 * PRECIO_POR_FICHA).toLocaleString('es-AR')} ARS).`;
+            } else if (limpio.includes("hola") || limpio.includes("buenas")) {
+                respuestaBot = "¡Hola! ¿Cómo estás? Soy Lutibot. Contame cuántas fichas necesitás o indicame tu consulta.";
+            }
+
+            // Simular el retraso de respuesta natural
+            setTimeout(() => {
+                mensajesEl.innerHTML += `<div class="msg bot">${respuestaBot}</div>`;
+                mensajesEl.scrollTop = mensajesEl.scrollHeight;
+            }, 400);
+        }
+    </script>
+</body>
+</html>
