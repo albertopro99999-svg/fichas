@@ -15,6 +15,8 @@
             --color-primario-hover: #1d4ed8;
             --color-whatsapp: #22c55e;
             --color-whatsapp-hover: #16a34a;
+            --color-messenger: #0084FF;
+            --color-messenger-hover: #006bce;
             --borde: #e2e8f0;
             --bg-img: #f1f5f9;
         }
@@ -64,10 +66,6 @@
             letter-spacing: -0.5px;
         }
 
-        .logo span {
-            color: var(--color-primario);
-        }
-
         .nav-actions {
             display: flex;
             align-items: center;
@@ -87,13 +85,44 @@
 
         .main-container {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 2rem;
-            max-width: 1200px;
+            grid-template-columns: 240px 1fr 340px;
+            gap: 1.5rem;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
             width: 100%;
             flex: 1;
+        }
+
+        .left-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--texto-principal);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .nav-item.active a, .nav-item a:hover {
+            background-color: var(--bg-img);
+            color: var(--color-primario);
         }
 
         .hero {
@@ -105,6 +134,12 @@
             font-weight: 800;
             letter-spacing: -0.5px;
             margin-bottom: 0.5rem;
+        }
+
+        .hero h2, .hero h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
         }
 
         .hero p {
@@ -128,7 +163,7 @@
 
         .grid-productos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
         }
 
@@ -261,10 +296,24 @@
             border: 1px solid var(--borde);
         }
 
-        .btn-wsp-submit {
+        .descuento-nota {
+            font-size: 0.75rem;
+            color: #22c55e;
+            display: block;
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+
+        .botones-contacto {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-wsp-submit, .btn-messenger-submit {
             width: 100%;
             padding: 0.85rem;
-            background-color: var(--color-whatsapp);
             color: white;
             border: none;
             border-radius: 6px;
@@ -275,17 +324,15 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            margin-top: 1rem;
             transition: background-color 0.2s;
         }
 
-        .btn-wsp-submit:hover {
-            background-color: var(--color-whatsapp-hover);
-        }
+        .btn-wsp-submit { background-color: var(--color-whatsapp); }
+        .btn-wsp-submit:hover { background-color: var(--color-whatsapp-hover); }
+        .btn-messenger-submit { background-color: var(--color-messenger); }
+        .btn-messenger-submit:hover { background-color: var(--color-messenger-hover); }
 
-        /* =============================================
-           ESTILOS DE LA IA INTERNA (CHATBOT)
-        ============================================= */
+        /* CHATBOT */
         .chatbot-container {
             position: fixed;
             bottom: 20px;
@@ -296,7 +343,6 @@
             align-items: flex-end;
         }
 
-        /* Etiqueta flotante */
         .chatbot-label {
             background-color: var(--bg-tarjeta);
             color: var(--texto-principal);
@@ -312,7 +358,6 @@
             cursor: pointer;
         }
 
-        /* Flechita apuntando hacia el botón */
         .chatbot-label::after {
             content: '';
             position: absolute;
@@ -323,19 +368,6 @@
             border-color: var(--bg-tarjeta) transparent transparent transparent;
         }
 
-        /* Borde de la flechita para que coincida con el borde del globo */
-        .chatbot-label::before {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            right: 23px;
-            border-width: 7px 7px 0;
-            border-style: solid;
-            border-color: var(--borde) transparent transparent transparent;
-            z-index: -1;
-        }
-
-        /* Animación de flotado para llamar la atención */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-5px); }
@@ -354,22 +386,17 @@
             font-size: 1.5rem;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: transform 0.2s;
-        }
-
-        .chatbot-button:hover {
-            transform: scale(1.05);
         }
 
         .chatbot-window {
-            width: 330px;
-            height: 430px;
+            width: 340px;
+            height: 440px;
             background-color: var(--bg-tarjeta);
             border: 1px solid var(--borde);
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
             margin-bottom: 10px;
-            display: none; /* Oculto por defecto */
+            display: none;
             flex-direction: column;
             overflow: hidden;
         }
@@ -382,18 +409,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .chatbot-header span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .chatbot-header i.close-btn {
-            cursor: pointer;
-            opacity: 0.8;
         }
 
         .chatbot-messages {
@@ -419,14 +434,12 @@
             color: var(--texto-principal);
             align-self: flex-start;
             border: 1px solid var(--borde);
-            border-top-left-radius: 2px;
         }
 
         .msg.user {
             background-color: var(--color-primario);
             color: white;
             align-self: flex-end;
-            border-top-right-radius: 2px;
         }
 
         .chatbot-input-area {
@@ -445,7 +458,6 @@
             background-color: var(--bg-principal);
             color: var(--texto-principal);
             outline: none;
-            font-size: 0.85rem;
         }
 
         .chatbot-input-area button {
@@ -455,6 +467,15 @@
             padding: 0.5rem 0.75rem;
             border-radius: 6px;
             cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr 340px;
+            }
+            .left-sidebar {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
@@ -485,6 +506,23 @@
 
     <div class="main-container">
         
+        <!-- BARRA LATERAL IZQUIERDA DE ORGANIZACIÓN -->
+        <aside class="left-sidebar">
+            <div class="widget" style="padding: 1rem;">
+                <ul class="nav-menu">
+                    <li class="nav-item active"><a href="#"><i class="fas fa-store"></i> Inicio / Tienda</a></li>
+                    <li class="nav-item"><a href="#resultado"><i class="fas fa-calculator"></i> Cotizador</a></li>
+                    <li class="nav-item"><a href="#" onclick="toggleBot(); return false;"><i class="fas fa-question-circle"></i> Ayuda Lutibot</a></li>
+                </ul>
+            </div>
+            <div class="widget" style="padding: 1rem; font-size: 0.8rem; color: var(--texto-secundario);">
+                <p><strong>WhatsApp Business:</strong></p>
+                <p style="margin-top: 0.4rem;"><i class="fas fa-phone"></i> +54 9 11 3262-3242</p>
+                <p><i class="fas fa-clock"></i> Despachos: Lun a Sáb</p>
+            </div>
+        </aside>
+        
+        <!-- CONTENIDO PRINCIPAL -->
         <main class="content">
             <div class="hero">
                 <h1>Fichas Laundry</h1>
@@ -506,19 +544,19 @@
                     <div class="card-body">
                         <div class="card-title">Ficha Laundry</div>
                         <p class="card-text">Introduce esta ficha en un lavadero compatible y ahorrate lavar la ropa.</p>
-                        <div class="precio">$1.600 <span style="font-size: 0.8rem; font-weight: normal; color: var(--texto-secundario);">c/u</span></div>
+                        <div class="precio">Precios por Mayor<span style="font-size: 0.8rem; font-weight: normal; color: var(--texto-secundario); display:block; margin-top:0.25rem;">50 unidades: $90.000<br>100 unidades: $160.000<br>+100 unidades: 10% OFF</span></div>
                     </div>
                 </div>
             </div>
         </main>
 
+        <!-- BARRA LATERAL DERECHA (HERRAMIENTAS Y PEDIDOS) -->
         <aside class="sidebar">
-            
             <div class="widget">
                 <h3><i class="fas fa-calculator"></i> Cotizador</h3>
                 <div class="form-group">
-                    <label for="cantidad">Cantidad (Mínimo 50):</label>
-                    <input type="number" id="cantidad" class="form-control" min="50" max="500" value="100">
+                    <label for="cantidad">Cantidad (Mínimo 50 | Máximo 300):</label>
+                    <input type="number" id="cantidad" class="form-control" min="50" max="300" value="100">
                 </div>
                 <button class="btn-primario" onclick="calcularTotal()">Calcular Presupuesto</button>
                 <div class="resultado-calc" id="resultado">
@@ -532,28 +570,28 @@
                     <label for="direccion">Dirección exacta de entrega:</label>
                     <input type="text" id="direccion" class="form-control" placeholder="Escribi calle, número y barrio">
                 </div>
-                <button class="btn-wsp-submit" onclick="enviarPedido()">
-                    <i class="fab fa-whatsapp"></i> Confirmar Pedido
-                </button>
+                
+                <div class="botones-contacto">
+                    <button class="btn-wsp-submit" onclick="enviarPedido()">
+                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp Business
+                    </button>
+                    <button class="btn-messenger-submit" onclick="enviarPedidoMessenger()">
+                        <i class="fab fa-facebook-messenger"></i> Pedir por Messenger
+                    </button>
+                </div>
             </div>
-
         </aside>
     </div>
 
-    <!-- =============================================
-       ESTRUCTURA HTML DEL ASISTENTE VIRTUAL IA 24/7
-    ============================================= -->
+    <!-- ASISTENTE VIRTUAL IA 24/7 -->
     <div class="chatbot-container">
-        
-        <!-- Ventana del chat (Oculta al inicio) -->
         <div class="chatbot-window" id="botWindow">
             <div class="chatbot-header">
-                <!-- También cambié el nombre en el encabezado del chat para que coincida -->
                 <span><i class="fas fa-robot"></i> Asistente Lutibot 24/7</span>
                 <i class="fas fa-times close-btn" onclick="toggleBot()"></i>
             </div>
             <div class="chatbot-messages" id="botMessages">
-                <div class="msg bot">¡Hola! 👋 Soy Lutibot, tu asistente inteligente. ¿En qué te puedo ayudar hoy? Podés preguntarme precios, zonas de envío o cuántas fichas buscás.</div>
+                <div class="msg bot">¡Hola! 👋 Soy Lutibot. ¿En qué te puedo ayudar hoy? Podés preguntarme precios, cómo funciona la web, formas de pago, stock o zonas de envío.</div>
             </div>
             <div class="chatbot-input-area">
                 <input type="text" id="botInput" placeholder="Escribí tu pregunta acá..." onkeypress="checkBotSubmit(event)">
@@ -561,51 +599,61 @@
             </div>
         </div>
 
-        <!-- Etiqueta Flotante Asistente IA -->
         <div class="chatbot-label" id="botLabel" onclick="toggleBot()">Asistente lutibot</div>
-        
-        <!-- Botón circular -->
-        <div class="chatbot-button" onclick="toggleBot()">
-            <i class="fas fa-comments"></i>
-        </div>
-
+        <div class="chatbot-button" onclick="toggleBot()"><i class="fas fa-comments"></i></div>
     </div>
 
     <script>
-        const PRECIO_POR_FICHA = 1600; 
         const WHATSAPP_NUMERO = "5491132623242";
+        const MESSENGER_USUARIO = "luticom";
+
+        function calcularPrecioLogica(cantidad) {
+            if (cantidad < 50) return { total: 0, desc: false };
+            
+            // Caso base 50 y 100 directos
+            if (cantidad === 50) return { total: 90000, desc: false };
+            if (cantidad === 100) return { total: 160000, desc: false };
+            
+            // Si está entre 51 y 99 de forma proporcional al precio base unitario de las 50 ($1800)
+            if (cantidad < 100) {
+                return { total: cantidad * 1800, desc: false };
+            }
+            
+            // Más de 100 unidades: toman de base el valor unitario de las 100 ($1600) y aplican 10% de descuento ($1440 c/u)
+            if (cantidad > 100) {
+                const baseUnitario = 1600;
+                const totalSinDescuento = cantidad * baseUnitario;
+                const totalConDescuento = totalSinDescuento * 0.9;
+                return { total: Math.round(totalConDescuento), desc: true };
+            }
+        }
 
         function calcularTotal() {
             const inputCantidad = document.getElementById('cantidad');
             const resultadoDiv = document.getElementById('resultado');
             let cantidad = parseInt(inputCantidad.value);
 
-            if (isNaN(cantidad) || cantidad < 50) {
-                inputCantidad.value = 50;
-                cantidad = 50;
-            } else if (cantidad > 500) {
-                inputCantidad.value = 500;
-                cantidad = 500;
-            }
+            if (isNaN(cantidad) || cantidad < 50) { inputCantidad.value = 50; cantidad = 50; }
+            else if (cantidad > 300) { inputCantidad.value = 300; cantidad = 300; }
 
-            const total = cantidad * PRECIO_POR_FICHA;
-            resultadoDiv.innerHTML = `Total Estimado: $${total.toLocaleString('es-AR')} ARS`;
-            return { cantidad, total };
+            const calculo = calcularPrecioLogica(cantidad);
+            
+            if (calculo.desc) {
+                resultadoDiv.innerHTML = `Total Estimado: $${calculo.total.toLocaleString('es-AR')} ARS <span class="descuento-nota">¡10% de descuento aplicado!</span>`;
+            } else {
+                resultadoDiv.innerHTML = `Total Estimado: $${calculo.total.toLocaleString('es-AR')} ARS`;
+            }
+            
+            return { cantidad, total: calculo.total };
         }
 
         function validarDireccionCABA(texto) {
             const direccion = texto.toLowerCase();
             const palabrasProvincia = ["lanus", "avellaneda", "moron", "san martin", "caseros", "vicente lopez", "olivos", "quilmes", "ramos mejia", "san isidro", "pilar", "gba", "provincia"];
-            for (let gba of palabrasProvincia) {
-                if (direccion.includes(gba)) return false;
-            }
-            if (direccion.includes("caba") || direccion.includes("capital federal") || direccion.includes("buenos aires capital") || direccion.includes("ciudad autonoma")) {
-                return true;
-            }
-            const barriosCABA = ["palermo", "recoleta", "belgrano", "caballito", "flores", "floresta", "almagro", "balvanera", "san telmo", "boca", "barracas", "constitucion", "saavedra", "nunez", "urquiza", "devoto", "versalles", "liniers", "mataderos", "lugano", "pompeya", "parque patricios", "chacarita", "colegiales", "villa crespo", "paternal", "agronomia", "boedo"];
-            for (let barrio of barriosCABA) {
-                if (direccion.includes(barrio)) return true;
-            }
+            for (let gba of palabrasProvincia) { if (direccion.includes(gba)) return false; }
+            if (direccion.includes("caba") || direccion.includes("capital federal") || direccion.includes("buenos aires capital")) return true;
+            const barriosCABA = ["palermo", "recoleta", "belgrano", "caballito", "flores", "floresta", "almagro", "balvanera", "san telmo", "boca", "barracas", "constitucion", "saavedra", "nunez", "urquiza", "devoto", "liniers", "mataderos", "lugano", "chacarita", "colegiales", "villa crespo"];
+            for (let barrio of barriosCABA) { if (direccion.includes(barrio)) return true; }
             return false;
         }
 
@@ -614,31 +662,30 @@
             const inputDireccion = document.getElementById('direccion');
             const direccionRaw = inputDireccion.value.trim();
 
-            if (!direccionRaw) {
-                alert("Por favor, ingresá tu dirección.");
-                inputDireccion.focus();
-                return;
-            }
+            if (!direccionRaw) { alert("Por favor, ingresá tu dirección."); return; }
+            if (!validarDireccionCABA(direccionRaw)) { alert("Envíos exclusivos dentro de CABA. Por favor, especificá tu barrio."); return; }
 
-            if (!validarDireccionCABA(direccionRaw)) {
-                alert("Atención: Los envíos son exclusivos dentro de CABA (Límite Av. General Paz). Por favor, especificá tu barrio o incluí 'CABA' en la dirección.");
-                inputDireccion.focus();
-                return;
-            }
-
-            const mensaje = `Hola! Quiero encargar fichas laundry desde la web.%0A%0A` +
-                            `• Cantidad: ${datos.cantidad} unidades%0A` +
-                            `• Zona: CABA (Exclusivo Capital Federal)%0A` +
-                            `• Dirección de entrega: ${direccionRaw}%0A` +
-                            `• Total: $${datos.total.toLocaleString('es-AR')} ARS`;
-
+            const mensaje = `Hola! Quiero encargar fichas laundry desde la web.%0A%0A• Cantidad: ${datos.cantidad} unidades%0A• Dirección: ${direccionRaw}%0A• Total: $${datos.total.toLocaleString('es-AR')} ARS`;
             window.open(`https://wa.me/${WHATSAPP_NUMERO}?text=${mensaje}`, '_blank');
         }
 
-        // Interruptor modo oscuro
+        function enviarPedidoMessenger() {
+            const datos = calcularTotal();
+            const inputDireccion = document.getElementById('direccion');
+            const direccionRaw = inputDireccion.value.trim();
+
+            if (!direccionRaw) { alert("Por favor, ingresá tu dirección."); return; }
+            if (!validarDireccionCABA(direccionRaw)) { alert("Envíos exclusivos dentro de CABA."); return; }
+
+            const mensaje = `Hola! Quiero encargar fichas laundry desde la web.\n\n• Cantidad: ${datos.cantidad} unidades\n• Dirección: ${direccionRaw}\n• Total: $${datos.total.toLocaleString('es-AR')} ARS`;
+            navigator.clipboard.writeText(mensaje).then(() => {
+                alert("¡Detalle copiado! Pegalo en el chat de Messenger.");
+                window.open(`https://m.me/${MESSENGER_USUARIO}`, '_blank');
+            }).catch(() => { window.open(`https://m.me/${MESSENGER_USUARIO}`, '_blank'); });
+        }
+
         const themeToggle = document.getElementById('theme-toggle');
         const icon = themeToggle.querySelector('i');
-
         themeToggle.addEventListener('click', () => {
             if (document.documentElement.getAttribute('data-theme') === 'dark') {
                 document.documentElement.removeAttribute('data-theme');
@@ -649,13 +696,9 @@
             }
         });
 
-        /* =============================================
-           LÓGICA JAVASCRIPT DE LA IA INTERNA (NLP BÁSICO)
-        ============================================= */
         function toggleBot() {
             const botWindow = document.getElementById('botWindow');
             const botLabel = document.getElementById('botLabel');
-            
             if (botWindow.style.display === 'flex') {
                 botWindow.style.display = 'none';
                 botLabel.style.display = 'block';
@@ -666,9 +709,7 @@
             }
         }
 
-        function checkBotSubmit(e) {
-            if (e.key === 'Enter') handleBotResponse();
-        }
+        function checkBotSubmit(e) { if (e.key === 'Enter') handleBotResponse(); }
 
         function handleBotResponse() {
             const inputEl = document.getElementById('botInput');
@@ -677,47 +718,61 @@
 
             if (!prompt) return;
 
-            // Mostrar mensaje del usuario
-            const userMsgHtml = `<div class="msg user">${prompt}</div>`;
-            mensajesEl.innerHTML += userMsgHtml;
+            mensajesEl.innerHTML += `<div class="msg user">${prompt}</div>`;
             inputEl.value = '';
             mensajesEl.scrollTop = mensajesEl.scrollHeight;
 
-            // Procesamiento de IA Interna
-            let respuestaBot = "Disculpá, no entendí bien tu consulta. Podés preguntarme sobre los precios, el pedido mínimo o las zonas donde hacemos envíos.";
+            let respuestaBot = "Disculpá, no llegué a entenderte. Podés preguntarme sobre cómo funciona la web, precios, formas de pago o zonas de envío.";
             const limpio = prompt.toLowerCase();
             const numerosEncontrados = limpio.match(/\d+/);
 
-            if (limpio.includes("pedir") || limpio.includes("comprar") || limpio.includes("encargar") || limpio.includes("fichas")) {
+            if (limpio.includes("funciona") || limpio.includes("como se usa") || limpio.includes("que hay que hacer") || limpio.includes("instrucciones") || limpio.includes("pasos") || limpio.includes("como compro")) {
+                respuestaBot = "¡Es muy simple! Funciona en 3 pasos: <br><br>1️⃣ **Elegí la cantidad** en el Cotizador de la derecha (mínimo 50 fichas).<br>2️⃣ **Escribí tu dirección** de entrega en CABA.<br>3️⃣ **Tocá el botón** de WhatsApp Business o Messenger para enviarnos el pedido automáticamente y coordinar la entrega.";
+            }
+            else if (limpio.includes("pedir") || limpio.includes("comprar") || limpio.includes("encargar") || limpio.includes("fichas")) {
                 if (numerosEncontrados) {
-                    const cant = parseInt(numerosEncontrados[0]);
-                    if (cant >= 50 && cant <= 500) {
-                        respuestaBot = `¡Perfecto! Para pedir **${cant} fichas**, ya configuré el Cotizador de la izquierda para vos. El total estimado sería de **$${(cant * PRECIO_POR_FICHA).toLocaleString('es-AR')} ARS**. Solo poné tu dirección ahí y hacé clic en "Confirmar Pedido".`;
+                    let cant = parseInt(numerosEncontrados[0]);
+                    if (cant >= 50 && cant <= 300) {
                         document.getElementById('cantidad').value = cant;
-                        calcularTotal();
+                        const resultadoCalculado = calcularTotal();
+                        respuestaBot = `¡Perfecto! Para pedir **${cant} fichas**, ya configuré el Cotizador. El total estimado es de **$${resultadoCalculado.total.toLocaleString('es-AR')} ARS**. Poné tu dirección a la derecha y elegí WhatsApp Business o Messenger para confirmar.`;
                     } else if (cant < 50) {
-                        respuestaBot = `Tomá en cuenta que el pedido mínimo de fichas es de **50 unidades**. Si querés, podés pedir 50 unidades desde el cotizador web.`;
+                        respuestaBot = `El pedido mínimo de fichas es de **50 unidades** ($90.000).`;
                     } else {
-                        respuestaBot = `El límite máximo por envío web Express es de 500 fichas. Si necesitás más de esa cantidad, por favor comunicate directo con nosotros.`;
+                        respuestaBot = `El límite máximo express por la web es de **300 fichas**. Por mayores cantidades con descuento corporativo, contactanos directo por WhatsApp Business.`;
                     }
                 } else {
-                    respuestaBot = "Para hacer un pedido ingresá la cantidad deseada en el panel del 'Cotizador' a la izquierda, ingresá tu dirección en CABA y presioná 'Confirmar Pedido' para ir a WhatsApp.";
+                    respuestaBot = "Para hacer un pedido, ingresá la cantidad en el 'Cotizador' a la derecha, tu dirección en CABA y elegí el canal de contacto.";
                 }
-            } else if (limpio.includes("precio") || limpio.includes("cuanto sale") || limpio.includes("costo") || limpio.includes("valor")) {
-                respuestaBot = `Cada ficha individual de Laundry cuesta **$${PRECIO_POR_FICHA.toLocaleString('es-AR')} ARS**. Recordá que hacemos ventas a partir de un mínimo de 50 unidades.`;
-            } else if (limpio.includes("envio") || limpio.includes("zona") || limpio.includes("donde") || limpio.includes("caba") || limpio.includes("provincia") || limpio.includes("general paz")) {
-                respuestaBot = "Hacemos envíos rápidos y exclusivos dentro de **CABA (Capital Federal)** hasta la Avenida General Paz. Entregamos a domicilio, puntos de acuerdo y locales comerciales.";
-            } else if (limpio.includes("minimo") || limpio.includes("cuanto es lo menos")) {
-                respuestaBot = `El pedido mínimo para distribución es de **50 fichas** (equivalente a $${(50 * PRECIO_POR_FICHA).toLocaleString('es-AR')} ARS).`;
-            } else if (limpio.includes("hola") || limpio.includes("buenas")) {
+            } 
+            else if (limpio.includes("precio") || limpio.includes("cuanto sale") || limpio.includes("costo") || limpio.includes("valor") || limpio.includes("descuento") || limpio.includes("promo")) {
+                respuestaBot = "Manejamos la siguiente escala de precios:<br><br>• **50 fichas**: $90.000<br>• **100 fichas**: $160.000<br>• **Más de 100 fichas**: Obtenés un **10% de descuento** automático (Toque web hasta 300 unidades).";
+            } 
+            else if (limpio.includes("pago") || limpio.includes("pagar") || limpio.includes("efectivo") || limpio.includes("transferencia") || limpio.includes("mercado pago") || limpio.includes("mp")) {
+                respuestaBot = "Aceptamos **Transferencia Bancaria**, **Mercado Pago** y **Efectivo** al momento de la entrega.";
+            }
+            else if (limpio.includes("envio") || limpio.includes("zona") || limpio.includes("donde") || limpio.includes("caba") || limpio.includes("reparto")) {
+                respuestaBot = "Hacemos envíos rápidos y exclusivos dentro de **CABA (Capital Federal)** hasta Av. General Paz.";
+            } 
+            else if (limpio.includes("stock") || limpio.includes("disponibles") || limpio.includes("tenes")) {
+                respuestaBot = "¡Sí, tenemos stock permanente para abastecimiento inmediato!";
+            }
+            else if (limpio.includes("horario") || limpio.includes("hora") || limpio.includes("abierto")) {
+                respuestaBot = "Tomamos pedidos las 24hs de forma digital. Los despachos y entregas se coordinan de lunes a sábados.";
+            }
+            else if (limpio.includes("humano") || limpio.includes("persona") || limpio.includes("atencion") || limpio.includes("hablar con alguien") || limpio.includes("whatsapp")) {
+                respuestaBot = "Para hablar con un asesor humano directo, presioná cualquiera de los botones de **WhatsApp Business** o **Messenger** del panel derecho.";
+            }
+            else if (limpio.includes("hola") || limpio.includes("buenas")) {
                 respuestaBot = "¡Hola! ¿Cómo estás? Soy Lutibot. Contame cuántas fichas necesitás o indicame tu consulta.";
+            } else if (limpio.includes("gracias") || limpio.includes("joya") || limpio.includes("perfecto")) {
+                respuestaBot = "¡De nada! 😊 Quedo acá por si tenés otra duda.";
             }
 
-            // Simular el retraso de respuesta natural
             setTimeout(() => {
                 mensajesEl.innerHTML += `<div class="msg bot">${respuestaBot}</div>`;
                 mensajesEl.scrollTop = mensajesEl.scrollHeight;
-            }, 400);
+            }, 350);
         }
     </script>
 </body>
